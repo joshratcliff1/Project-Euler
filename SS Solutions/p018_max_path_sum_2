@@ -1,0 +1,101 @@
+def read_triangle():
+    with open("../p018_input.txt", "r") as fh:
+        # reads the file and converts to a list of lists.
+        matrix = [line.split() for line in fh]
+        # Then converts each element in the list to an integer
+        matrix = [[int(j) for j in i] for i in matrix]
+        #print("matrix after read {}".format(matrix))
+        return matrix
+
+triangle = read_triangle()
+
+
+
+
+def check_initial(triangle, depth):
+    max_sum = 0
+    max_sum_elem = 0
+    max_sum_base_elem = 0
+    triangle_height = len(triangle)
+    test_height = triangle_height - depth
+
+    for test_pos in range(len(triangle[test_height])):
+
+        curr_sum = 0
+        next_element = test_pos
+        prev_element = test_pos
+        test_list = []
+
+        curr_sum += triangle[test_height][test_pos]
+        print("Adding {} which is element {} on row {}".format(
+            triangle[test_height][test_pos],test_pos, test_height))
+
+        for row in range(triangle_height - depth,triangle_height-1):
+            prev_element = next_element
+            if triangle[row+1][test_pos] > triangle[row+1][test_pos+1]:
+                next_element = test_pos
+            else:
+                next_element = test_pos + 1
+
+            print("Adding {} which is element {} on row {}".format(
+                triangle[row+1][next_element],next_element,row+1))
+            curr_sum += triangle[row+1][next_element]
+
+
+        print(curr_sum)
+        if curr_sum > max_sum:
+            max_sum = curr_sum
+            max_sum_elem = test_pos
+            max_sum_base_elem = next_element
+
+    print("max_sum is {}".format(max_sum))
+    print("element is {}".format(max_sum_elem))
+    print("base element is {}".format(max_sum_base_elem))
+
+    return max_sum_base_elem
+
+
+
+def final_check(triangle, starting_elem):
+    triangle_height = len(triangle)
+
+    curr_sum = 0
+    next_element = starting_elem
+    prev_element = starting_elem
+
+    #curr_sum += triangle[triangle_height - 1][starting_elem]
+
+    for row in range(triangle_height):
+        prev_element = next_element
+        if starting_elem == 0:
+            next_element = 0
+        elif starting_elem == (triangle_height - 1):
+            next_element = starting_elem - row
+        elif prev_element == (triangle_height - row):
+            next_element = prev_element - 1
+        elif prev_element == 0:
+            next_element = 0
+        elif triangle[triangle_height - 1 - row][prev_element - 1] > triangle[triangle_height - 1 - row][prev_element]:
+            next_element = prev_element - 1
+        else:
+            next_element = prev_element
+
+        print("Adding {} which is element {} on row {}".format(
+            triangle[triangle_height - 1 - row][next_element], next_element, row))
+        curr_sum += triangle[triangle_height - 1 - row][next_element]
+        #print("curr sum is {}".format(curr_sum))
+
+    print("The final sum is {}".format(curr_sum))
+
+
+print(triangle)
+
+max_sum_elem = check_initial(triangle, 4)
+#final_check(triangle, max_sum_elem)
+
+#print(final_check(max_sum_elem))
+
+
+sum_up = sum([98, 67, 91, 73, 43, 47, 83, 28, 77, 23, 82, 87, 82, 64, 75])
+
+#print(sum_up)
