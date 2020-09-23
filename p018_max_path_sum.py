@@ -1,5 +1,9 @@
 from random import choices as rc
 
+"""
+Note: A much better solution was found for p067. This solution was still an intersting way of dolving the problem
+and could be adapted for a later problem, so has been left as originally solved.
+"""
 
 def read_triangle():
     """

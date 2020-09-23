@@ -10,7 +10,7 @@ def read_triangle():
     Each element of the row is inside the inner list
     :return: triangle list is a formatted list of lists.
     """
-    with open("p067_input.txt", "r") as fh:
+    with open("../p067_input.txt", "r") as fh:
         # reads the file and converts to a list of lists.
         triangle_list = [line.split() for line in fh]
         # Then converts each element in the list to an integer
